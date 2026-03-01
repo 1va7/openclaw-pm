@@ -1,7 +1,7 @@
 {
   "name": "@1va7/openclaw-pm",
-  "version": "1.0.0",
-  "description": "OpenClaw 项目经理配置升级工具 - 让你的 AI Agent 成为优秀的项目经理",
+  "version": "2.0.0",
+  "description": "OpenClaw 项目经理配置升级工具 V2 - 任务管理、Session 隔离、自动恢复",
   "main": "index.js",
   "bin": {
     "openclaw-pm": "./index.js"
@@ -15,7 +15,11 @@
     "agent",
     "project-manager",
     "pm",
-    "configuration"
+    "configuration",
+    "v2",
+    "task-management",
+    "session-isolation",
+    "auto-recovery"
   ],
   "author": "VA7",
   "license": "MIT",
