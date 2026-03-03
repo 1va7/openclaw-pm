@@ -6,12 +6,6 @@ const os = require('os');
 
 const CONFIG_FILE = 'OpenClaw-PM配置升级指南.md';
 
-// 配置文件内容
-const configContent = fs.readFileSync(
-  path.join(__dirname, 'config', CONFIG_FILE),
-  'utf-8'
-);
-
 // 尝试找到 OpenClaw workspace
 function findOpenClawWorkspace() {
   const possiblePaths = [
@@ -21,17 +15,46 @@ function findOpenClawWorkspace() {
   ];
   
   for (const p of possiblePaths) {
-    if (fs.existsSync(p) && fs.existsSync(path.join(p, 'AGENTS.md'))) {
-      return p;
+    if (fs.existsSync(p)) {
+      // 检查关键文件（支持大小写）
+      const keyFiles = ['AGENTS.md', 'agents.md', 'SOUL.md', 'soul.md'];
+      const hasKeyFile = keyFiles.some(f => fs.existsSync(path.join(p, f)));
+      if (hasKeyFile) {
+        return p;
+      }
     }
   }
   return null;
 }
 
+// 安全读取文件
+function safeReadConfig() {
+  const configPath = path.join(__dirname, 'config', CONFIG_FILE);
+  
+  if (!fs.existsSync(configPath)) {
+    console.error(`\n❌ 错误：找不到配置文件 ${CONFIG_FILE}`);
+    console.error(`   预期路径：${configPath}`);
+    return null;
+  }
+  
+  try {
+    return fs.readFileSync(configPath, 'utf-8');
+  } catch (err) {
+    console.error(`\n❌ 错误：读取配置文件失败 - ${err.message}`);
+    return null;
+  }
+}
+
 console.log('\n🚀 OpenClaw 项目经理配置升级工具\n');
-console.log('=' .repeat(50));
+console.log('='.repeat(50));
 
 const workspace = findOpenClawWorkspace();
+const configContent = safeReadConfig();
+
+if (!configContent) {
+  console.log('\n💡 请检查是否正确安装了此工具。\n');
+  process.exit(1);
+}
 
 if (workspace) {
   // 找到了 workspace，保存配置文件
