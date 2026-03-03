@@ -1,5 +1,31 @@
 # Changelog
 
+## [2.1.0] - 2026-03-03
+
+### 新增
+
+- **健康检查脚本系统** (#2)
+  - 添加 7 个健康检查脚本到 `scripts/` 目录
+  - `gateway-health-check.sh` - 自动检查和恢复 Gateway
+  - `check-unanswered.sh` - 检测未回复的消息
+  - `heartbeat-check.sh` - 统一执行 HEARTBEAT.md 检查
+  - `check-missed-crons.sh` - 检查 cron 任务执行状态
+  - `quick-diagnose.sh` - 一键诊断常见问题
+  - `morning-briefing.sh` - 晨间简报
+  - `daily-stats.sh` - 每日活动统计
+  - 添加 `scripts/README.md` 详细使用说明
+
+### 修复
+
+- 修复字符串拼接错误 (#1, 感谢 @youngzheng-dev)
+- 添加安全的文件读取函数
+- 扩展工作空间检测支持大小写文件名
+
+### 文档
+
+- 更新 README.md，添加健康检查脚本说明
+- 添加脚本安装和使用指南
+
 ## [2.0.0] - 2026-03-01
 
 ### V2 重大更新
